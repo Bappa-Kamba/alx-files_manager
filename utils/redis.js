@@ -1,4 +1,4 @@
-const redis = require('redis');
+import redis from 'redis';
 
 class RedisClient {
   constructor() {
@@ -11,15 +11,7 @@ class RedisClient {
   }
 
   isAlive() {
-    return new Promise((resolve) => {
-      this.client.ping((err, response) => {
-        if (err) {
-          resolve(false);
-        } else {
-          resolve(response === 'PONG');
-        }
-      });
-    });
+    return this.client.connected;
   }
 
   async get(key) {
@@ -60,4 +52,4 @@ class RedisClient {
 }
 const redisClient = new RedisClient();
 
-module.exports = { redisClient };
+export default redisClient;
